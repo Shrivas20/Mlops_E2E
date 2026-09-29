@@ -8,9 +8,12 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "certifi>=2026.7.22",
     "numpy>=2.5.3",
     "pandas>=3.0.6",
+    "pymongo[srv]==3.12",
     "python-dotenv>=1.2.3",
+    "scikit-learn>=1.9.1",
 ]
 
 [project.scripts]

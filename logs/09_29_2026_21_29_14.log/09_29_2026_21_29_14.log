@@ -1,0 +1,2 @@
+[2026-09-29 21:29:24,772] 74 root - INFO - Data pushed to MongoDB collection: PhishingData in database NetworkSecurity
+[2026-09-29 21:29:24,772] 90 root - INFO - Number of records inserted: 11055
