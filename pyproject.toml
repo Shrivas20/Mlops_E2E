@@ -1,0 +1,21 @@
+[project]
+name = "mlops-e2e"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Shrivas20", email = "100528571+Shrivas20@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "python-dotenv>=1.2.3",
+]
+
+[project.scripts]
+mlops-e2e = "mlops_e2e:main"
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13.0"]
+build-backend = "uv_build"
