@@ -2,6 +2,7 @@
 .env
 .DS_Store
 logs/
+Artifacts/
 
 # Python cache
 __pycache__/
