@@ -1,9 +1,9 @@
 from src.mlops_e2e.components.data_ingestion import DataIngestion
 from src.mlops_e2e.components.data_validation import DataValidation
+from src.mlops_e2e.components.data_transformation import DataTransformation
 from src.mlops_e2e.exception.execption import NetworkSecurityException
 from  src.mlops_e2e.logging.logger import logging
-from src.mlops_e2e.entity.config_entity import DataIngestionConfig, DataValidationConfig
-from src.mlops_e2e.entity.config_entity import TrainingPipelineConfig
+from src.mlops_e2e.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig, DataValidationConfig, DataTransformationConfig
 
 if __name__ == "__main__":
     try:
@@ -22,6 +22,13 @@ if __name__ == "__main__":
         logging.info("Starting data validation process...")
         data_validation_artifact = data_validation.initiate_data_validation()
         logging.info("Data validation completed successfully.")
+
+        # Start data transformation process
+        data_transformation_config = DataTransformationConfig(trainingpipeline_config)
+        data_transformation = DataTransformation(data_transformation_config, data_validation_artifact)
+        logging.info("Starting data transformation process...")
+        data_transformation_artifact = data_transformation.initiate_data_transformation()
+        logging.info("Data transformation completed successfully.")
 
     except NetworkSecurityException as e:
         logging.error(f"Network security exception occurred: {e}")
