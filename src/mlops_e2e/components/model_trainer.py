@@ -1,4 +1,5 @@
 import sys, os
+import mlflow
 
 from mlops_e2e.exception.execption import NetworkSecurityException
 from mlops_e2e.logging.logger import logging
@@ -27,6 +28,17 @@ class ModelTrainer:
 
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+
+        
+
+    def track_mlflow(self, best_model, classification_metric_artifact:ClassificationMetricArtifact):
+        with mlflow.start_run():
+            mlflow.sklearn.log_model(best_model, name = "model",skops_trusted_types=["sklearn.tree._tree.Tree"])
+            mlflow.log_metric("f1_score", classification_metric_artifact.f1_score)
+            mlflow.log_metric("precision_score", classification_metric_artifact.precision_score)
+            mlflow.log_metric("recall_score", classification_metric_artifact.recall_score)
+
+        
 
     def train_model(self, X_train, y_train, X_test, y_test):
         models = {
@@ -88,6 +100,9 @@ class ModelTrainer:
                             y_true=y_test,
                             y_pred=y_test_pred
                         )
+
+        self.track_mlflow(best_model = best_model, classification_metric_artifact=classification_train_metric_artifact)
+        self.track_mlflow(best_model = best_model, classification_metric_artifact=classification_test_metric_artifact)
 
         preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
 
