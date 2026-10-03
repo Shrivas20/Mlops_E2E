@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN apt-get update \
-    && apt-get install -y awscli \
-    && rm -rf /var/lib/apt/lists/*
+ENV PYTHONPATH=/app/src
 
 RUN pip install --no-cache-dir -r requirements.txt
 
