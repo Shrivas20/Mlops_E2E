@@ -42,7 +42,8 @@ class DataTransformation:
             ]) 
 
             # Fit the pipeline on the training data and transform both train and test datasets
-            X_train_imputed = transformation_pipeline.fit_transform(X_train)
+            preprocessor_object = transformation_pipeline.fit(X_train)
+            X_train_imputed = transformation_pipeline.transform(X_train)
             X_test_imputed = transformation_pipeline.transform(X_test)
 
             # Save the transformed datasets
@@ -54,7 +55,10 @@ class DataTransformation:
 
             # Save the imputer object for future use
             transformed_object_file_path = self.data_transformation_config.transformed_object_file_path
-            save_object(transformed_object_file_path, imputer)
+            save_object(transformed_object_file_path, preprocessor_object)
+            
+            save_object("final_model/preprocessor.pkl", preprocessor_object)
+
 
             logging.info("Data transformation process completed successfully")
 
