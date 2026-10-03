@@ -97,7 +97,7 @@ jobs:
 
         - name: Clean previous images and containers
           run: |
-             dockers system prune -f
+             docker system prune -f
             
 
 
